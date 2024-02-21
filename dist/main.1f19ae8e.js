@@ -118,16 +118,33 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"main.js":[function(require,module,exports) {
-'use strict';
-
-function counter() {
-  var seconds = 0;
-  setInterval(function () {
-    seconds += 1;
-    document.getElementById('app').innerHTML = "<p>You have been here for ".concat(seconds, " seconds.</p>");
-  }, 1000);
-}
-counter();
+//https://www.facebook.com/marketplace/la/search?query=miata&radius=805&deliveryMethod=local_pick_up
+var baseURL = "https://www.facebook.com/marketplace/<<CITY>>/search/?query=<<SEARCH>>";
+var cities = ["113093802034968",
+//Pacific Northwest
+"107524245944156",
+//Mid-Atlantic
+"109546952404225",
+//Southwest
+"108018822553353",
+//Midwest
+"106084172755635",
+//Rocky Mountains
+"113541638659587",
+//Southeast
+"105701396129318",
+//The South
+"105590109474550" //Texas
+];
+var search = document.getElementById('search');
+var form = document.getElementById('form');
+form.addEventListener('submit', function (event) {
+  event.preventDefault();
+  for (var _i = 0, _cities = cities; _i < _cities.length; _i++) {
+    var city = _cities[_i];
+    window.open(baseURL.replace("<<CITY>>", city).replace("<<SEARCH>>", search.value));
+  }
+});
 },{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -153,7 +170,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59879" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59940" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
